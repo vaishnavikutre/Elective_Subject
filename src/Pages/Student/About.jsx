@@ -24,6 +24,8 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import "../style.css"
+import {useFormik} from "formik";
+import * as yup from "yup";
 import {BrowserRouter as Router, Link, withRouter } from "react-router-dom";
 
 
@@ -66,8 +68,35 @@ const useStyles = makeStyles((theme) => ({
 
 export default function About({history}) {
   const classes = useStyles();
+  const schema =yup.object().shape({
+    name:yup.string().required('This field is required'),
+    sem:yup.string().required("This field is required"),
+    usn:yup.string().required('This field is required'),
+    email: yup.string().required("This field is required").email("Invalid Email address"),
+    sgpa:yup.string().required("This field is required"),
+    college:yup.string().required("This field is required"),
+    });
+        
+        const formik=useFormik({
+            initialValues:{
+                name:"",
+                sem:"",
+                email:"",
+                usn:"",
+                sgpa:"",
+                college:"",
+                
+    
+            },
+            validationSchema:schema,
+            onSubmit:(data) =>{
+                console.log(data)
+            }
+    
+        })
 
   return (
+    console.log(formik),
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -133,43 +162,94 @@ export default function About({history}) {
         <Typography paragraph>
           <div><h1>About Page</h1></div>          
           <div>
+            <form onSubmit={formik.handleSubmit}>
             <div className="about-div-2">
                 <h2>
                     Your information
                 </h2>
             <div className="about-flex-box">
            <h3>Name :</h3>
-              <TextField  />
+              <TextField 
+               width={200}
+               label="Name"
+               name="name"
+               onChange={formik.handleChange}
+               value={formik.values.name}
+               onBlur={formik.handleBlur}
+               error={formik.errors.name}
+               touched={formik.touched.name} />
             </div>
             <div className="about-flex-box">
            <h3>Semester :</h3>
-              <TextField />
+              <TextField
+                label="Semester"
+               
+                width={200}
+                name="sem"
+                values={formik.values.semester}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.errors.sem}
+                touched={formik.touched.sem} />
             </div>
 
             <div className="about-flex-box">
                 <h3>Email :</h3>
         
-              <TextField />
+              <TextField 
+              label="Email"
+              name="email"
+              width={200}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              error={formik.errors.email}
+              touched={formik.touched.email}/>
             </div>
             <div className="about-flex-box">
               <h3>College :</h3>
-              <TextField />
+              <TextField 
+              width={200}
+              label="College"
+              name="college"
+              values={formik.values.college}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.errors.college}
+              touched={formik.touched.college}/>
             </div>
             <div className="about-flex-box">
               <h3>USN :</h3>
-              <TextField />
+              <TextField 
+               label="Usn"
+               width={200}
+               name="usn"
+               onChange={formik.handleChange}
+               value={formik.values.usn}
+               onBlur={formik.handleBlur}
+               error={formik.errors.usn}
+               touched={formik.touched.usn}/>
             </div>
             <div className="about-flex-box">
               <h3>SGPA :</h3>
-              <TextField />
+              <TextField 
+               width={200}
+               label="SGPA"
+               name="sgpa"
+               onChange={formik.handleChange}
+               value={formik.values.sgpa}
+               onBlur={formik.handleBlur}
+               error={formik.errors.sgpa}
+               touched={formik.touched.sgpa}/>
             </div>
       
 
         <br/>
                
-                <BUTTON  title="Submit"/>
+                <BUTTON  title="Submit" />
                
             </div>
+            </form>
           </div>
         </Typography>
         

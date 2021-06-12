@@ -21,7 +21,8 @@ function TextFieldComponent(props) {
             <TextField id="outlined-basic" 
             style={{width:props.width,backgroundColor:'white',}}
             
-           
+           type={props.type}
+           rowsMax={props.rowsMax}
             label={props.label}
              name={props.name} 
             onChange={props.onChange}

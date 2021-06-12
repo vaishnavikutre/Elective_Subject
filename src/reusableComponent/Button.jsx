@@ -6,7 +6,8 @@ const ButtonComponent = (props) => {
     <div>
       <Button
         variant="contained"
-        style={{width:200}}
+        
+        style={{width:props.width}}
         color="primary"
         size="large"
         type={props.type}

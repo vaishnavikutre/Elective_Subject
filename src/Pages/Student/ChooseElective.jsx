@@ -28,6 +28,7 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import { useFormik } from "formik";
 import Grid from "@material-ui/core/Grid";
 import "../style.css";
+import * as yup from "yup";
 import { BrowserRouter as Router, Link, withRouter } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -75,8 +76,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChooseElective({ history }) {
   const classes = useStyles();
+  const schema =yup.object().shape({
+    subject1:yup.string().required("Select option"),
+    subject2:yup.string().required("Select option"),
+    subject3:yup.string().required("Select option"),
+    subject4:yup.string().required("Select option"),
+  })
+
+  const formik= useFormik({
+    initialValues:{
+      subject1:"",
+      subject2:"",
+      subject3:"",
+      subject4:"",
+    },
+    validationSchema:schema,
+    onSubmit:(data)=>{
+      console.log(data)
+    }
+  })
 
   return (
+    console.log(formik),
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -156,15 +177,15 @@ export default function ChooseElective({ history }) {
                 data={Subjects}
                 width={300}
                 label="Select"
-                name="sem"
+                name="subject1"
                 
         
                 
-                //    values={formik.values.semester}
-                //    onChange={formik.handleChange}
-                //    onBlur={formik.handleBlur}
-                //    error={formik.errors.sem}
-                //    touched={formik.touched.sem}
+                   values={formik.values.subject1}
+                   onChange={formik.handleChange}
+                   onBlur={formik.handleBlur}
+                   error={formik.errors.subject1}
+                   touched={formik.touched.subject1}
               />
             </Grid>
             <Grid item xs={6}>
@@ -210,16 +231,18 @@ export default function ChooseElective({ history }) {
            
             <Grid item xs={6}>
             <Select
-                data={Subjects}
-                width={300}
-                label="Select"
-                name="sem"
-                backgroundColor="white"
-                //    values={formik.values.semester}
-                //    onChange={formik.handleChange}
-                //    onBlur={formik.handleBlur}
-                //    error={formik.errors.sem}
-                //    touched={formik.touched.sem}
+             data={Subjects}
+             width={300}
+             label="Select"
+             name="subject2"
+             
+     
+             
+                values={formik.values.subject2}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.errors.subject2}
+                touched={formik.touched.subject2}
               />
             </Grid>
             <Grid item xs={6}>
@@ -265,16 +288,18 @@ export default function ChooseElective({ history }) {
            
            <Grid item xs={6}>
            <Select
-               data={Subjects}
-               width={300}
-               label="Select"
-               name="sem"
-               backgroundColor="white"
-               //    values={formik.values.semester}
-               //    onChange={formik.handleChange}
-               //    onBlur={formik.handleBlur}
-               //    error={formik.errors.sem}
-               //    touched={formik.touched.sem}
+           data={Subjects}
+           width={300}
+           label="Select"
+           name="subject3"
+           
+   
+           
+              values={formik.values.subject3}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.errors.subject3}
+              touched={formik.touched.subject3}
              />
            </Grid>
            <Grid item xs={6}>
@@ -320,16 +345,18 @@ export default function ChooseElective({ history }) {
            
            <Grid item xs={6}>
            <Select
-               data={Subjects}
-               width={300}
-               label="Select"
-               name="sem"
-               backgroundColor="white"
-               //    values={formik.values.semester}
-               //    onChange={formik.handleChange}
-               //    onBlur={formik.handleBlur}
-               //    error={formik.errors.sem}
-               //    touched={formik.touched.sem}
+            data={Subjects}
+            width={300}
+            label="Select"
+            name="subject4"
+            
+    
+            
+               values={formik.values.subject4}
+               onChange={formik.handleChange}
+               onBlur={formik.handleBlur}
+               error={formik.errors.subject4}
+               touched={formik.touched.subject4}
              />
            </Grid>
            <Grid item xs={6}>
@@ -372,7 +399,7 @@ export default function ChooseElective({ history }) {
            </Grid>
            <br/> <br/>
            <BUTTON 
-          //  isdisabled={!(formik.dirty && formik.isValid)}
+           isdisabled={!(formik.dirty && formik.isValid)}
             title="Submit"/>
               
               

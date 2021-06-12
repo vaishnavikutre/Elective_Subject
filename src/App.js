@@ -10,6 +10,12 @@ import rating from "./Pages/Student/Faculty_Rating"
 import './App.css';
 import {BrowserRouter as Router, Link, Switch, Route, withRouter } from "react-router-dom";
 import FacultyRating from './Pages/Student/Faculty_Rating';
+import AddCollege from './Pages/Admin/Add_college';
+import AddElective from './Pages/Admin/Add_elctive';
+import AddUser from './Pages/Admin/Add_user';
+import ElectiveInfo from './Pages/Admin/Elective_info';
+import Electivescore from './Pages/Admin/ElectiveScore_data';
+
 // import About from './Pages/DashboardPages/about';
 
 function App() {
@@ -28,6 +34,12 @@ function App() {
           <Route path="/Helpme" component={Helpme}></Route>
           <Route path="/ChooseElective" component={ChooseElective}></Route>
           <Route path="/rating" component={FacultyRating}></Route>
+          <Route path="/admin/Add_college" component={AddCollege}></Route>
+          <Route path="/admin/Add_elective" component={AddElective}></Route>
+          <Route path="/admin/Add_user" component={AddUser}></Route>
+          <Route path="/admin/Electiveinfo" component={ElectiveInfo}></Route>
+          <Route path="/admin/ElectiveScore" component={Electivescore}></Route>
+
         </Switch>
       </Router>
     </div>
