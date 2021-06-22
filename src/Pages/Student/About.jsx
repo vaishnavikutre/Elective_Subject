@@ -10,9 +10,9 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import BUTTON from '..//..//reusableComponent/Button'
-import TextField from '..//..//reusableComponent/TextField'
-import HomeIcon from '@material-ui/icons/Home';
+//import BUTTON from '..//..//reusableComponent/Button'
+import TextField from '..//..//reusableComponent/textfirlddisabled'
+//import HomeIcon from '@material-ui/icons/Home';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import StarHalfSharpIcon from '@material-ui/icons/StarHalfSharp';
 import PersonIcon from '@material-ui/icons/Person';
@@ -21,11 +21,11 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+//import Grid from '@material-ui/core/Grid';
+//import Box from '@material-ui/core/Box';
 import "../style.css"
 import {useFormik} from "formik";
-import * as yup from "yup";
+//import * as yup from "yup";
 import {BrowserRouter as Router, Link, withRouter } from "react-router-dom";
 
 
@@ -68,27 +68,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function About({history}) {
   const classes = useStyles();
-  const schema =yup.object().shape({
-    name:yup.string().required('This field is required'),
-    sem:yup.string().required("This field is required"),
-    usn:yup.string().required('This field is required'),
-    email: yup.string().required("This field is required").email("Invalid Email address"),
-    sgpa:yup.string().required("This field is required"),
-    college:yup.string().required("This field is required"),
-    });
+ 
+  
         
         const formik=useFormik({
             initialValues:{
-                name:"",
-                sem:"",
-                email:"",
-                usn:"",
-                sgpa:"",
-                college:"",
-                
-    
-            },
-            validationSchema:schema,
+                username:"Vaishnavi",
+                usn:"2ji18cs099",
+                sem:"Fifth",
+                cgpa:"8.5",
+                sgpa:"9.1",
+                phone:"9632870199",
+                email:"Vaishnavi@gmail.com",
+                college:"Jain college of Engineering,Belgaum.",
+         },
+           
             onSubmit:(data) =>{
                 console.log(data)
             }
@@ -158,9 +152,8 @@ export default function About({history}) {
        
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>
-          <div><h1>About Page</h1></div>          
+        <div className={classes.toolbar} style={{minHeight:45}} />
+        <Typography paragraph>  
           <div>
             <form onSubmit={formik.handleSubmit}>
             <div className="about-div-2">
@@ -172,27 +165,74 @@ export default function About({history}) {
               <TextField 
                width={200}
                label="Name"
-               name="name"
-               onChange={formik.handleChange}
-               value={formik.values.name}
+               name="username"
+               handleChange={formik.handleChange}
+               values={formik.values.username}
                onBlur={formik.handleBlur}
-               error={formik.errors.name}
-               touched={formik.touched.name} />
+               error={formik.errors.username}
+               touched={formik.touched.username}/>
             </div>
             <div className="about-flex-box">
-           <h3>Semester :</h3>
-              <TextField
+              <h3>USN :</h3>
+              <TextField 
+               label="Usn"
+               width={200}
+               name="usn"
+               handleChange={formik.handleChange}
+               values={formik.values.usn}
+               onBlur={formik.handleBlur}
+               error={formik.errors.usn}
+               touched={formik.touched.usn}/>
+            </div>
+            <div className="about-flex-box">
+            <h3>Semester :</h3>
+            <TextField
                 label="Semester"
-               
                 width={200}
                 name="sem"
-                values={formik.values.semester}
-                onChange={formik.handleChange}
+                values={formik.values.sem}
+                handleChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 error={formik.errors.sem}
                 touched={formik.touched.sem} />
             </div>
-
+            <div className="about-flex-box">
+            <h3>CGPA :</h3>
+              <TextField 
+               width={200}
+               label="CGPA"
+               name="cgpa"
+               handleChange={formik.handleChange}
+               values={formik.values.cgpa}
+               onBlur={formik.handleBlur}
+               error={formik.errors.cgpa}
+               touched={formik.touched.cgpa}/>
+            </div>
+           <div className="about-flex-box">
+              <h3>SGPA :</h3>
+              <TextField 
+               width={200}
+               label="SGPA"
+               name="sgpa"
+               handleChange={formik.handleChange}
+               values={formik.values.sgpa}
+               onBlur={formik.handleBlur}
+               error={formik.errors.sgpa}
+               touched={formik.touched.cgpa} />
+            </div>
+            <div className="about-flex-box">
+            <h3>Phone :</h3>
+              <TextField 
+               width={200}
+               label="Phone"
+               name="phone"
+               handleChange={formik.handleChange}
+               values={formik.values.phone}
+               onBlur={formik.handleBlur}
+               error={formik.errors.phone}
+               touched={formik.touched.phone}/>
+               </div>
+           
             <div className="about-flex-box">
                 <h3>Email :</h3>
         
@@ -200,8 +240,8 @@ export default function About({history}) {
               label="Email"
               name="email"
               width={200}
-              onChange={formik.handleChange}
-              value={formik.values.email}
+              handleChange={formik.handleChange}
+              values={formik.values.email}
               onBlur={formik.handleBlur}
               error={formik.errors.email}
               touched={formik.touched.email}/>
@@ -213,41 +253,11 @@ export default function About({history}) {
               label="College"
               name="college"
               values={formik.values.college}
-              onChange={formik.handleChange}
+              handleChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.errors.college}
               touched={formik.touched.college}/>
             </div>
-            <div className="about-flex-box">
-              <h3>USN :</h3>
-              <TextField 
-               label="Usn"
-               width={200}
-               name="usn"
-               onChange={formik.handleChange}
-               value={formik.values.usn}
-               onBlur={formik.handleBlur}
-               error={formik.errors.usn}
-               touched={formik.touched.usn}/>
-            </div>
-            <div className="about-flex-box">
-              <h3>SGPA :</h3>
-              <TextField 
-               width={200}
-               label="SGPA"
-               name="sgpa"
-               onChange={formik.handleChange}
-               value={formik.values.sgpa}
-               onBlur={formik.handleBlur}
-               error={formik.errors.sgpa}
-               touched={formik.touched.sgpa}/>
-            </div>
-      
-
-        <br/>
-               
-                <BUTTON  title="Submit" />
-               
             </div>
             </form>
           </div>

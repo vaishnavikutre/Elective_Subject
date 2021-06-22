@@ -1,7 +1,8 @@
 import React from 'react';
 import TextField from '..//..//reusableComponent/TextField'
 import Select from '..//..//reusableComponent/DropDown' 
-import BUTTON from '..//..//reusableComponent/Button'
+//import BUTTON from '..//..//reusableComponent/Button'
+import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,7 +16,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton'
-import Button from '@material-ui/core/Button'
+//import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
 import "../style.css"
 import { useFormik } from "formik";
@@ -166,7 +167,7 @@ export default function AddElective({history}) {
                  width={400}
                     label="Code"
                     name="code"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.code}
                     onBlur={formik.handleBlur}
                     error={formik.errors.code}
@@ -178,7 +179,7 @@ export default function AddElective({history}) {
                  width={400}
                     label="Enter elctive name"
                     name="name"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.name}
                     onBlur={formik.handleBlur}
                     error={formik.errors.name}
@@ -218,7 +219,10 @@ export default function AddElective({history}) {
                     </Grid>
                     </Grid>
                     <br/>
-                    <BUTTON title="Submit" width="300px"></BUTTON>
+                    <Button title="Submit" width="300px"
+                    variant="contained"
+                    color="primary"
+                    disabled={!(formik.dirty && formik.isValid) ? true : false}>Submit</Button>
 
              </div>
          </form>

@@ -13,7 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
-import BUTTON from '..//..//reusableComponent/Button'
+//import BUTTON from "@material-ui/core/Button";
 import Grid from '@material-ui/core/Grid';
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -73,6 +73,7 @@ export default function AddCollege({history}) {
   
  
   return (
+    console.log(formik),
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -145,7 +146,7 @@ export default function AddCollege({history}) {
                  width={300}
                     label="College Name"
                     name="name"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.name}
                     onBlur={formik.handleBlur}
                     error={formik.errors.name}
@@ -158,7 +159,7 @@ export default function AddCollege({history}) {
                     label="College id"
                 
                     name="id"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.id}
                     onBlur={formik.handleBlur}
                     error={formik.errors.id}
@@ -168,7 +169,10 @@ export default function AddCollege({history}) {
                     </Grid>
                     <br/>
                    
-       <BUTTON  title="Submit" width="200"></BUTTON>
+       <Button  title="Submit" width="200"
+       variant="contained"
+       color="primary"
+       disabled={!(formik.dirty && formik.isValid) ? true : false}>Submit</Button>
 
           </form>
          </div>

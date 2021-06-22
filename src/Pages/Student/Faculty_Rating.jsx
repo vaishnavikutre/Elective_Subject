@@ -20,10 +20,41 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid';
+import Rating from '@material-ui/lab/Rating';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+//import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
 import "../style.css"
 import {BrowserRouter as Router, Link, withRouter } from "react-router-dom";
+function createData(name) {
+  return { name };
+}
+const rows = [
+  createData('Python'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
+  createData('Advance Java'),
 
 
+
+];
+
+ 
 const drawerWidth = 240;
 
 const icons = [
@@ -57,13 +88,19 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3),
+   
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
   },
 }));
 
 
 export default function FacultyRating({history}) {
   const classes = useStyles();
-
+  const [value, setValue] = React.useState(2);
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -126,11 +163,53 @@ export default function FacultyRating({history}) {
        
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>
-          <h1>This is rating page</h1>
-        </Typography>
+        <div className={classes.toolbar} style={{minHeight:45}} />
         
+         <div className="ContainerRating">
+         <Grid item xs={6}>
+         <div className="electivesChoosen">
+         <TableContainer component={Paper}>
+      <Table className={classes.table1} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell><div style={{ fontSize: 20, textAlign: "center" }}>Allocated Electives</div></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow  key={row.name}>
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+           </div>
+           </Grid>
+           <Grid item xs={6}>
+           <div className="rating">
+           <Box component="fieldset" mb={3} borderColor="transparent">
+        <Typography component="legend">Rating</Typography>
+        <Rating
+          name="simple-controlled"
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        />
+      </Box>
+         </div>
+       </Grid>
+       <Grid item xs={6}>
+         <div className="Comment">
+           <label>Write your comment here :<textarea style={{width:373,height:74,marginBottom:410}}>
+            
+           </textarea ></label>
+         </div>
+      </Grid>
+       </div>
       </main>
     </div>
   );

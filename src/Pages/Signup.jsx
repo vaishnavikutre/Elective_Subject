@@ -1,14 +1,14 @@
 import React from 'react'
 import Heading from "../reusableComponent/Heading";
 import TextField from "../reusableComponent/TextField"
-import Button from "../reusableComponent/Button"
+import Button from '@material-ui/core/Button';
 import Select from "../reusableComponent/DropDown"
 import "../Pages/style.css"
 import { useFormik } from "formik";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import * as yup from "yup";
-
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 function Signup() {
-    const phoneRegExp=/^\d{10}$/;
+   const phoneRegExp = /^[1-9]{1}[0-9]{9}$/;
     const branch = [
         "Computer Science",
         "Electronics and Communication",
@@ -53,8 +53,9 @@ name:yup.string().required('This field is required'),
 usn:yup.string().required('This field is required'),
 email: yup.string().required("This field is required").email("Invalid Email address"),
 password: yup.string().required().min(4, 'Create a strong password'),
-mobile: yup.string().matches(phoneRegExp,"Invalid phone number"),
-confirm_password:   yup.string().required("This field is required"),      
+mobile:yup.string().required('This field is required').matches(phoneRegExp,'invalid phone number'),
+confirm_password:   yup.string()
+                    .oneOf([yup.ref('password'),null], 'Password must match')      
 });
     
     const formik=useFormik({
@@ -84,15 +85,15 @@ confirm_password:   yup.string().required("This field is required"),
             <div className="signup-div">
 
                 <form onSubmit={formik.handleSubmit}>
-                <Heading data="Sign up?"/> 
-                <br/><br/> 
+                <Heading data="Sign up"/> 
+                <br/>
                 <Grid container spacing={2}>
                 <Grid item xs={6}>
                 <TextField
                  width={200}
                     label="Name"
                     name="name"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.name}
                     onBlur={formik.handleBlur}
                     error={formik.errors.name}
@@ -106,7 +107,7 @@ confirm_password:   yup.string().required("This field is required"),
                     label="Usn"
                     width={200}
                     name="usn"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.usn}
                     onBlur={formik.handleBlur}
                     error={formik.errors.usn}
@@ -124,7 +125,7 @@ confirm_password:   yup.string().required("This field is required"),
                  width={200}
                     label="Mobile"
                     name="mobile"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.mobile}
                     onBlur={formik.handleBlur}
                     error={formik.errors.mobile}
@@ -137,7 +138,7 @@ confirm_password:   yup.string().required("This field is required"),
                     label="Email"
                     name="email"
                     width={200}
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.email}
                     onBlur={formik.handleBlur}
                     error={formik.errors.email}
@@ -201,7 +202,7 @@ confirm_password:   yup.string().required("This field is required"),
                  width={200}
                     label="SGPA"
                     name="sgpa"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.sgpa}
                     onBlur={formik.handleBlur}
                     error={formik.errors.sgpa}
@@ -217,7 +218,7 @@ confirm_password:   yup.string().required("This field is required"),
                  width={200}
                     label="Password"
                     name="password"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.password}
                     onBlur={formik.handleBlur}
                     error={formik.errors.password}
@@ -229,7 +230,7 @@ confirm_password:   yup.string().required("This field is required"),
                     width={200}      
                     label="confirm_Password"
                     name="confirm_password"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.confirm_password}
                     onBlur={formik.handleBlur}
                     error={formik.errors.confirm_password}
@@ -238,13 +239,16 @@ confirm_password:   yup.string().required("This field is required"),
         </Grid>
 
                 </Grid>
-                <br/><br/> <br/>
+                <br/>
                 <Button 
-          //  isdisabled={!(formik.dirty && formik.isValid)}
-            title="Signup"/>
-            <a href="">
-            <h5>Already Registered? Signin here</h5>
-            </a>
+                 variant="contained"
+                 color="primary"
+                 
+                 disabled={!(formik.dirty && formik.isValid) ? true : false}
+            title="Signup">Submit</Button>
+            <Link to='/Login'><h5>Already Registered? Signin here</h5></Link>
+            
+           
            
                 </form>
             </div>

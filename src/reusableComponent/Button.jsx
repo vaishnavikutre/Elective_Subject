@@ -6,11 +6,9 @@ const ButtonComponent = (props) => {
     <div>
       <Button
         variant="contained"
-        
-        style={{width:props.width}}
         color="primary"
-        size="large"
         type={props.type}
+        style={{width:props.width}}
         disabled={props.isdisabled}
       >
         {props.title}

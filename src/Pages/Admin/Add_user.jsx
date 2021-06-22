@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '..//..//reusableComponent/TextField'
 import Select from '..//..//reusableComponent/DropDown'
-import BUTTON from '..//..//reusableComponent/Button'
+//import BUTTON from '..//..//reusableComponent/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -150,7 +150,7 @@ export default function AddUser({history}) {
                  width={300}
                     label="Your Name"
                     name="name"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.name}
                     onBlur={formik.handleBlur}
                     error={formik.errors.name}
@@ -179,7 +179,7 @@ export default function AddUser({history}) {
                  width={300}
                     label="Password"
                     name="password"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.password}
                     onBlur={formik.handleBlur}
                     error={formik.errors.password}
@@ -193,7 +193,7 @@ export default function AddUser({history}) {
                  width={300}
                     label="Enter elctive name"
                     name="name"
-                    onChange={formik.handleChange}
+                    handleChange={formik.handleChange}
                     value={formik.values.name}
                     onBlur={formik.handleBlur}
                     error={formik.errors.name}
@@ -201,7 +201,10 @@ export default function AddUser({history}) {
                     />
             </div>
             <br/>
-          <BUTTON title="Submit"></BUTTON>
+          <Button title="Submit"
+          variant="contained"
+          color="primary"
+          disabled={!(formik.dirty && formik.isValid) ? true : false}>Submit</Button>
           </form>
          </Typography>
         

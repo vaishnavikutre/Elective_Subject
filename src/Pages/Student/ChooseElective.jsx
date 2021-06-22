@@ -19,10 +19,10 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Select from "../../reusableComponent/DropDown";
-import BUTTON from "../../reusableComponent/Button";
+//import Button from "../../reusableComponent/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
+//import FormLabel from "@material-ui/core/FormLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import { useFormik } from "formik";
@@ -80,7 +80,7 @@ export default function ChooseElective({ history }) {
     subject1:yup.string().required("Select option"),
     subject2:yup.string().required("Select option"),
     subject3:yup.string().required("Select option"),
-    subject4:yup.string().required("Select option"),
+
   })
 
   const formik= useFormik({
@@ -88,7 +88,6 @@ export default function ChooseElective({ history }) {
       subject1:"",
       subject2:"",
       subject3:"",
-      subject4:"",
     },
     validationSchema:schema,
     onSubmit:(data)=>{
@@ -215,12 +214,6 @@ export default function ChooseElective({ history }) {
                       label="3"
                       labelPlacement="bottom"
                     />
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio color="primary" />}
-                      label="4"
-                      labelPlacement="bottom"
-                    />
                   </RadioGroup>
                 </FormControl>
               </div>
@@ -270,12 +263,6 @@ export default function ChooseElective({ history }) {
                       value="3"
                       control={<Radio color="primary" />}
                       label="3"
-                      labelPlacement="bottom"
-                    />
-                    <FormControlLabel
-                      value="end"
-                      control={<Radio color="primary" />}
-                      label="4"
                       labelPlacement="bottom"
                     />
                   </RadioGroup>
@@ -329,78 +316,17 @@ export default function ChooseElective({ history }) {
                      label="3"
                      labelPlacement="bottom"
                    />
-                   <FormControlLabel
-                     value="end"
-                     control={<Radio color="primary" />}
-                     label="4"
-                     labelPlacement="bottom"
-                   />
                  </RadioGroup>
                </FormControl>
              </div>
            </Grid>
            </Grid>
            <br/>
-           <Grid container spacing={4}> 
-           
-           <Grid item xs={6}>
-           <Select
-            data={Subjects}
-            width={300}
-            label="Select"
-            name="subject4"
-            
-    
-            
-               values={formik.values.subject4}
-               onChange={formik.handleChange}
-               onBlur={formik.handleBlur}
-               error={formik.errors.subject4}
-               touched={formik.touched.subject4}
-             />
-           </Grid>
-           <Grid item xs={6}>
-           <div>
-               <FormControl component="fieldset">
-                 <RadioGroup
-                   row
-                   aria-label="position"
-                   name="position"
-                   defaultValue="top"
-                 >
-                   <FormControlLabel
-                     value="1"
-                     control={<Radio color="primary" />}
-                     label="1"
-                     labelPlacement="Bottom"
-                   />
-                   <FormControlLabel
-                     value="2"
-                     control={<Radio color="primary" />}
-                     label="2"
-                     labelPlacement="bottom"
-                   />
-                   <FormControlLabel
-                     value="3"
-                     control={<Radio color="primary" />}
-                     label="3"
-                     labelPlacement="bottom"
-                   />
-                   <FormControlLabel
-                     value="end"
-                     control={<Radio color="primary" />}
-                     label="4"
-                     labelPlacement="bottom"
-                   />
-                 </RadioGroup>
-               </FormControl>
-             </div>
-           </Grid>
-           </Grid>
-           <br/> <br/>
-           <BUTTON 
-           isdisabled={!(formik.dirty && formik.isValid)}
-            title="Submit"/>
+           <Button
+           variant="contained"
+           color="primary"
+          disabled={!(formik.dirty && formik.isValid) ? true : false}
+            title="Submit">Submit</Button>
               
               
                      </div>

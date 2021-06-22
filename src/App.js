@@ -16,6 +16,8 @@ import AddUser from './Pages/Admin/Add_user';
 import ElectiveInfo from './Pages/Admin/Elective_info';
 import Electivescore from './Pages/Admin/ElectiveScore_data';
 
+import FacultyDash from './Pages/Faculty/facultydash';
+
 // import About from './Pages/DashboardPages/about';
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
           <Route path="/admin/Add_user" component={AddUser}></Route>
           <Route path="/admin/Electiveinfo" component={ElectiveInfo}></Route>
           <Route path="/admin/ElectiveScore" component={Electivescore}></Route>
+          <Route path="/Faculty/FacultyDash" component={FacultyDash}></Route>
 
         </Switch>
       </Router>
