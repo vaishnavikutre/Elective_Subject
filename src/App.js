@@ -6,6 +6,7 @@ import About from "./Pages/Student/About"
 import Helpme from "./Pages/Student/Helpme"
 import ChooseElective from "./Pages/Student/ChooseElective"
 import rating from "./Pages/Student/Faculty_Rating"
+import { ToastContainer } from 'react-toastify';
 
 import './App.css';
 import {BrowserRouter as Router, Link, Switch, Route, withRouter } from "react-router-dom";
@@ -45,6 +46,7 @@ function App() {
 
         </Switch>
       </Router>
+      <ToastContainer />
     </div>
   );
 }

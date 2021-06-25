@@ -5,6 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function SuccessToast(msg) {
     return (toast.success(msg),{
         position:'top-right',
-        autoClose:3000
+        autoClose:50000
     });
 }

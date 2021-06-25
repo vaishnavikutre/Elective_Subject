@@ -3,7 +3,7 @@ import Heading from "../reusableComponent/Heading";
 import TextField from "../reusableComponent/TextField.jsx"
 import errorToast from "../reusableComponent/errorToast";
 import successToast from "../reusableComponent/successToast";
-import { ToastContainer } from 'react-toastify';
+
 import Button from  "@material-ui/core/Button";
 import "../Pages/style.css"
 import { BrowserRouter as Router, Link, Switch, Route, withRouter } from "react-router-dom";
@@ -14,44 +14,60 @@ import axios from "axios";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import Loader from "../reusableComponent/Button";
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+//import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
 
 
 
 function Login() {
   const history = useHistory();
   const [state, setState] = useState(false);
-  const variable1="";
-
+  var variable1;
+  
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   const schema = yup.object().shape({
-    usn: yup.string().required('This field is required'),
+    email: yup.string().required('This field is required'),
     password: yup.string().required().min(4, 'Create a strong password'),
 
   });
   const formik = useFormik(
     {
       initialValues: {
-        usn: "",
+        email: "",
         password: "",
       },
       validationSchema: schema,
       onSubmit: (data) => {
-        console.log(data);
+        
         setState(true);
         axios({
-          url: 'http://localhost:8000/users/login/',
+          url: 'http://192.168.43.242:8000/users/login/',
           method: 'post',
-          header: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
           data: data
         }).then((response) => {
           console.log(response)
           setState(false)
 
-          if (response.data.status === 401) {
-            errorToast(response.data.detail);
-          }
-          if (response.data.status === 200) {
-            successToast("successfully login");
+          
+          if (response.status === 200) {
+            
             variable1 = localStorage.setItem("refresh",response.data.refresh);
             console.log(localStorage.getItem(variable1));
             localStorage.setItem("access",response.data.access);
@@ -60,22 +76,28 @@ function Login() {
             localStorage.setItem("dob",response.data.dob);
             localStorage.setItem("gender",response.data.gender);
             localStorage.setItem("role",response.data.role);
-          }
+          
           if (response.data.role === "none") {
             errorToast("You are neither a student nor a faculty member");
-            history.push("/");
+            //history.push("/");
           }
           if (response.data.role === "student") {
-            history.push("/dashboard")
+            successToast("successfully login");
+            history.push("/dashboard");
           }
           if (response.data.role === "faculty") {
-            history.push("/Faculty/FacultyDashboard")
+            successToast("successfully login");
+            history.push("/Faculty/FacultyDash");
           }
+        }
 
 
         }).catch((error) => {
-          console.log(error)
-          errorToast("something went wrong,Check with your connection");
+          console.log(error.response)
+          if(error.response.status === 401) {
+            errorToast(error.response.data.detail);
+          }
+         
         })
       },
     }
@@ -83,16 +105,13 @@ function Login() {
 
 
   return (
+     
     <div>
-      {
-        state === "true" &&
-        <div>
-          <Loader />
-        </div>
-      }
-      {
-
-        console.log(formik),
+      {state ?
+       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+<CircularProgress color="inherit" />
+</Backdrop>
+     :
         <div className="app" >
 
           <div className="log-div" >
@@ -102,18 +121,18 @@ function Login() {
 
             />
             <br />
-
+            
             <form onSubmit={formik.handleSubmit}>
 
 
               <TextField
-                label="usn"
-                name="usn"
+                label="email"
+                name="email"
                 handleChange={formik.handleChange}
-                value={formik.values.usn}
+                value={formik.values.email}
                 onBlur={formik.handleBlur}
-                error={formik.errors.usn}
-                touched={formik.touched.usn}
+                error={formik.errors.email}
+                touched={formik.touched.email}
               />
               <br/><br></br>
 
@@ -134,18 +153,22 @@ function Login() {
                  variant="contained"
                  color="primary"
                  title="Login"
-                onClick={setState} disabled={!(formik.dirty && formik.isValid) ? true : false}>Login</Button>
+                 type="submit"
+                onClick={()=>{setState(); handleToggle();}} disabled={!(formik.dirty && formik.isValid) ? true : false} >Login</Button>
               <Link to="/Signup"><h5>Don't have account? SignUp</h5></Link>
 
-
+             
             </form>
 
-            <ToastContainer />
+            
           </div>
+          
         </div>
-
-      }
+        
+}
+      
     </div>
+   
 )
 }
 

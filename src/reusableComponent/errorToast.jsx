@@ -4,6 +4,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function ErrorToast(msg) {
     return (toast.error(msg),{
         position:"top-right",
-        autoClose:4000,
+        autoClose:50000,
     })
 }
