@@ -19,7 +19,7 @@ import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
-import Select from "..//..//reusableComponent/DropDown";
+import Select from '@material-ui/core/Select';
 import BUTTON from "..//..//reusableComponent/Button";
 import Grid from "@material-ui/core/Grid";
 import Chart from "react-google-charts";
@@ -27,6 +27,7 @@ import "../style.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { BrowserRouter as Router, Link, withRouter } from "react-router-dom";
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -39,7 +40,8 @@ const icons = [
 ];
 
 
-const Subjects = ["Java", "python", "Data Structure"];
+const data=[{"elective_id":1,"elective_name":"internet of things","elective_short_name":"IOT"},
+             {"elective_id":2,"elective_name":"Advance java","elective_short_name":"AdvJAVA"}];
 
 const routes = [
   "/dashboard",
@@ -85,7 +87,17 @@ export default function Helpme({ history }) {
     },
     validationSchema:schema,
     onSubmit:(data)=>{
-      console.log(data)
+      axios({
+        url: '/electives/allelectives',
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        data: data
+      }).then((response)=>
+      {console.log(response.data)}
+      ).catch((error) => {
+        console.log(error)
+        // errorToast("something went wrong");
+      })
     }
   }
   )
@@ -158,7 +170,7 @@ export default function Helpme({ history }) {
           <Grid container spacing={10}>
             <Grid item xs={6}>
               <Select
-                data={Subjects}
+               
                 width={300}
                 label="Select"
                 name="sem"
@@ -168,7 +180,11 @@ export default function Helpme({ history }) {
                    onBlur={formik.handleBlur}
                    error={formik.errors.sem}
                    touched={formik.touched.sem}
-              />
+              >
+              {
+                data.map((element)=><menuItem key={element.elective_short_name} value={element.elective_id}>{element.elective_name}</menuItem>)
+              }
+              </Select>
             </Grid>
             <Grid item xs={6}>
               <BUTTON title="submit"  width="250px"isdisabled={(!formik.dirty && formik.isValid)}/>

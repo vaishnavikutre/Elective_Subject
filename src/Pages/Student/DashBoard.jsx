@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
 }));
 
@@ -131,7 +131,7 @@ export default function PermanentDrawerLeft({history}) {
           <div main-div style={{width:"100vh",height:"800px",marginTop:"40px",padding:"10px"}}>
 
 
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
                 <Grid item xs>
                <div style={{backgroundColor:'#e1bee7',width:"220px",height:"200px"}}></div>
         </Grid>

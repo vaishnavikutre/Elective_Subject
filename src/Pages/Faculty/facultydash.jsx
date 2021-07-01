@@ -152,7 +152,7 @@ export default function Facultydash(props){
           axios({
             url: 'http://127.0.0.1:5000/Faculty/FacultyDash',
             method: 'post',
-            header: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             data: data
           }).then((response) => {
             console.log(response);

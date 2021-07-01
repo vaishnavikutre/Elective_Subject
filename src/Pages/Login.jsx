@@ -57,14 +57,14 @@ function Login() {
         
         setState(true);
         axios({
-          url: 'http://192.168.43.242:8000/users/login/',
+          url: '/users/login/',
           method: 'post',
           headers: { 'Content-Type': 'application/json' },
           data: data
         }).then((response) => {
           console.log(response)
           setState(false)
-
+          
           
           if (response.status === 200) {
             
@@ -96,6 +96,7 @@ function Login() {
           console.log(error.response)
           if(error.response.status === 401) {
             errorToast(error.response.data.detail);
+            
           }
          
         })
